@@ -1,0 +1,12 @@
+{
+  "name": "dugganusa-agent-guard",
+  "version": "1.0.0",
+  "description": "Find invisible Unicode hidden in AI agent instruction files (CLAUDE.md, .cursorrules, AGENTS.md). Zero dependencies.",
+  "bin": { "agent-guard": "./scan-agent-instructions.js" },
+  "main": "scan-agent-instructions.js",
+  "scripts": { "test": "node test.js", "scan": "node scan-agent-instructions.js" },
+  "keywords": ["security","prompt-injection","ai-agents","unicode","claude-code","cursor","supply-chain"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/pduggusa/dugganusa-agent-guard.git" },
+  "engines": { "node": ">=16" }
+}
