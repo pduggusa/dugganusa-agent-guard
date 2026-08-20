@@ -169,6 +169,65 @@ for when it arrived. The answer tells you whether you have a poisoned file or a
 poisoned contributor. `--strip` preserves the original as `.bak-preclean` for exactly
 this reason — destroying evidence during incident response is its own mistake.
 
+## The second tool: `scan-provenance.js`
+
+Same question, different artifact. `scan-agent-instructions.js` asks *what is hidden
+in the text your agent reads*. This asks *what does this image claim about where it
+came from* — and, just as importantly, refuses to answer a question it cannot.
+
+```bash
+node scan-provenance.js ./images
+```
+
+```
+MANIFEST photo.jpg
+         126,531 bytes, 2 segment(s) at offset 20, 14 JUMBF boxes
+         version-tagged strings (heuristic, may include XMP namespaces): make_test_images/0.16.1
+         assertions: c2pa.actions, c2pa.claim, c2pa.hash.data, c2pa.ingredient (+8)
+
+Every line above is what the file CLAIMS. This tool does not check the
+signature and cannot tell you the claim is true — use c2patool for that.
+"A claim is present" and "the claim is true" are different facts.
+```
+
+### What it will not do
+
+It will never tell you an image is authentic, valid, or verified — and there is a
+test asserting the word never appears in its output.
+
+Real C2PA validation means parsing a COSE signature, walking a certificate chain,
+checking it against a trust list, and re-hashing every asserted byte range. That is
+a large surface. **A tool that looks authoritative while skipping signature
+validation is worse than no tool**, because it manufactures confidence it has not
+earned, and provenance tooling is precisely where that failure is most expensive.
+For actual validation, use [c2patool](https://github.com/contentauth/c2pa-rs).
+
+What it does give you is the thing nothing on most people's machines gives them at
+all: **is there a provenance manifest in this file, yes or no, and what does it
+say.** Including whether it declares AI generation.
+
+### Tested against the real corpus
+
+Against the official [C2PA public test files](https://github.com/c2pa-org/public-testfiles),
+not fixtures we invented — fixtures you generate yourself only prove the parser
+agrees with itself.
+
+That corpus includes deliberately corrupt files (`E-sig`, `E-clm`, `E-dat`, `E-uri`).
+**Those are the important cases.** This tool reports a tampered file exactly the same
+way it reports a good one, because it is not checking signatures. A detector that
+called them valid would be lying; one that silently dropped them would be hiding
+evidence. There are tests for both behaviours.
+
+One thing the corpus shows nicely: in `adobe-20220124-E-sig-CA.jpg`, the generator
+string reads `make_test_xxxxxx` where the intact file reads `make_test_images`. The
+tampering is visible in the claim itself — which is exactly why surfacing the claim
+verbatim is useful even without signature checking.
+
+```bash
+npm run fetch-fixtures   # ~5 MB, not vendored into this repo
+npm test                 # both tools
+```
+
 ## Tests
 
 ```bash

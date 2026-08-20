@@ -1,12 +1,36 @@
 {
   "name": "dugganusa-agent-guard",
   "version": "1.0.0",
-  "description": "Find invisible Unicode hidden in AI agent instruction files (CLAUDE.md, .cursorrules, AGENTS.md). Zero dependencies.",
-  "bin": { "agent-guard": "./scan-agent-instructions.js" },
+  "description": "Find what's hidden in files your AI reads: invisible Unicode in agent instructions, and C2PA provenance claims in images.",
+  "bin": {
+    "agent-guard": "./scan-agent-instructions.js"
+  },
   "main": "scan-agent-instructions.js",
-  "scripts": { "test": "node test.js", "scan": "node scan-agent-instructions.js" },
-  "keywords": ["security","prompt-injection","ai-agents","unicode","claude-code","cursor","supply-chain"],
+  "scripts": {
+    "test": "node test.js && node test-provenance.js",
+    "scan": "node scan-agent-instructions.js",
+    "fetch-fixtures": "./fetch-fixtures.sh",
+    "provenance": "node scan-provenance.js"
+  },
+  "keywords": [
+    "ai-agents",
+    "c2pa",
+    "claude-code",
+    "content-authenticity",
+    "cursor",
+    "prompt-injection",
+    "provenance",
+    "security",
+    "supply-chain",
+    "unicode",
+    "unicode-tag-block"
+  ],
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/pduggusa/dugganusa-agent-guard.git" },
-  "engines": { "node": ">=16" }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pduggusa/dugganusa-agent-guard.git"
+  },
+  "engines": {
+    "node": ">=16"
+  }
 }
