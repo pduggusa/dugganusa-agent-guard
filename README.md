@@ -1,5 +1,9 @@
 # agent-guard
 
+**You do you. I do me. We share contexts.**
+
+Your agent's instruction files are its context; agent-guard shows you what is hiding in them before you share them with it.
+
 Find invisible Unicode hidden in AI agent instruction files — including the Unicode tag block, which carries a full readable ASCII payload and renders as nothing.
 
 Zero dependencies. One file. MIT. Runs locally — **nothing leaves your machine.**
