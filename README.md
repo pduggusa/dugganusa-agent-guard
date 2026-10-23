@@ -1,5 +1,7 @@
 # agent-guard
 
+**Docs:** https://docs.dugganusa.com/agents/check-package/
+
 **You do you. I do me. We share contexts.**
 
 Your agent's instruction files are its context; agent-guard shows you what is hiding in them before you share them with it.
