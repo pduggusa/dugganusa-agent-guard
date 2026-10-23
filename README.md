@@ -65,7 +65,7 @@ poisoned instruction file sits there being read faithfully on every invocation.
 
 ## The tag block, and why it is the one that matters
 
-Most tools in this space look for zero-width characters. Those are a **low-bandwidth**
+Zero-width characters are the familiar case, and they are a **low-bandwidth**
 channel — a zero-width space is present or absent, so you smuggle roughly one bit per
 character and you need a scheme to decode it. Awkward, and mostly useful as a marker.
 
@@ -206,8 +206,7 @@ validation is worse than no tool**, because it manufactures confidence it has no
 earned, and provenance tooling is precisely where that failure is most expensive.
 For actual validation, use [c2patool](https://github.com/contentauth/c2pa-rs).
 
-What it does give you is the thing nothing on most people's machines gives them at
-all: **is there a provenance manifest in this file, yes or no, and what does it
+What it does give you is a quick local answer: **is there a provenance manifest in this file, yes or no, and what does it
 say.** Including whether it declares AI generation.
 
 ### Tested against the real corpus
